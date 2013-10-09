@@ -65,6 +65,7 @@ class RSolr::Connection
   private
 
   def force_charset body, charset
+    body = MessagePack.unpack(body) if defined?(MessagePack)
     return body unless charset and body.respond_to?(:force_encoding)
     body.force_encoding(charset)
   end
